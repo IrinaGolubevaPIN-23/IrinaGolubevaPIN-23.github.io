@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Моя сцена</title>
+  <script src="aframe.min.js"></script>
+  <script src="aframe-extras.min.js"></script>
+</head>
+<body>
+  <a-scene>
+    <!-- Освещение -->
+    <a-camera look-controls></a-camera>
+    <a-light type="ambient" color="#fff" intensity="3"></a-light>
+    <a-text id="timer" value="0" position="0 2 -2" color="#000" font="mozillavr"></a-text> 
+
+    <!-- Твоя модель -->
+    <a-entity gltf-model="url(Wall_with_name.glb)" position="0 0 8" scale="1 1 1" rotation="0 180 0"></a-entity>
+    <a-entity gltf-model="url(Cubs_static.glb)" position="9 0 -6" scale="1 1 1" rotation="0 90 0"></a-entity>
+    <a-entity gltf-model="url(Cubs_dynamic.glb)" position="9 0 -6" scale="1 1 1" rotation="0 90 0" animation="property: position; to: 9 2 -6; dur: 1000; easing: easeInOutSine; loop: true; dir: alternate"></a-entity>
+     <!-- Падающий куб через 3 секунды -->
+      <a-box color="crimson"position="0 10 0" animation="property: position; to: 0 -10 0; dur: 1500; easing: easeInQuad; delay: 3000"></a-box>
+
+    <!-- Пол (опционально, для контекста) -->
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="20" height="20" color="#7BC8A4"> </a-plane>
+    <!-- Небо -->
+    <a-sky color="#e0f7fa"></a-sky>
+  </a-scene>
+  <script>
+    AFRAME.registerComponent('timer', {
+      schema: { start: { default: 0 } },
+      init: function () {
+        this.count = this.data.start;
+        this.el.setAttribute('value', this.count);
+        this.interval = setInterval(() => {
+          this.count++;
+          this.el.setAttribute('value', this.count);
+        }, 1000);
+      },
+      remove: function () {
+        clearInterval(this.interval);
+      }
+    });
+  </script> 
+
+
+
+</body>
+</html>
+
+<!-- WOH6PFYCVVN4GQMLJQVYZ2U7XIEDIVOC -->
